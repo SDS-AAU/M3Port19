@@ -11,5 +11,15 @@
 	<atom:link href="https://sds-aau.github.io/M3Port19/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Deconvolution and Image Segmentation</title>
+      <link>https://sds-aau.github.io/M3Port19/portfolio/deconvolution/</link>
+      <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
+      
+      <guid>https://sds-aau.github.io/M3Port19/portfolio/deconvolution/</guid>
+      <description>Group members: Johannes Hoseth, Sergiu Ropota, Katharina Granberg
+Deconvolution - A Way Of Increasing Output Size Within the field of computer vision, a well-known and multi-faceted area is segmentation, i.e. identifying and classifying objects in an image, via classes.</description>
+    </item>
+    
   </channel>
 </rss>

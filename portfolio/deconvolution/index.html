@@ -18,7 +18,7 @@
 
 </head>
 
-<body class='page page-default-list'>
+<body class='page page-default-single'>
   <div id="main-menu-mobile" class="main-menu-mobile">
   <ul>
     
@@ -104,6 +104,10 @@
   <h4>Portfolio</h4>
   <ul>
     
+    <li class="active ">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/deconvolution/">Deconvolution and Image Segmentation</a>
+    </li>
+    
   </ul>
 </div>
 
@@ -111,10 +115,8 @@
         </div>
         <div class="col-12 col-md-9">
           
-
-<span class="overview">Overview</span>
 <h1 class="title">Deconvolution and Image Segmentation</h1>
-<div class="content">
+<div class="content ">
   <p><strong>Group members:</strong> Johannes Hoseth, Sergiu Ropota, Katharina Granberg</p>
 <h2 id="deconvolution---a-way-of-increasing-output-size">Deconvolution - A Way Of Increasing Output Size</h2>
 <p>Within the field of computer vision, a well-known and multi-faceted area is segmentation, i.e. identifying and classifying objects in an image, via classes. Deep Learning is especially applicable for tackling this, since the models are effecient in finding higher-level indicative features used in the segmentation.</p>
@@ -284,8 +286,8 @@ out = model.predict_segmentation(
 )
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">display(Img_open(&#39;/content/coco/imgs_test/235062.png&#39;,width=100, height=100))
 display(Img_open(&#39;/content/coco/output.png&#39;,width=100, height=100))
-</code></pre></div><p><img src="/img/Cats_and_Dogs_42_0.png" alt="png"></p>
-<p><img src="/img/Cats_and_Dogs_42_1.png" alt="png"></p>
+</code></pre></div><p><img src="img/Cats_and_Dogs_42_0.png" alt="png"></p>
+<p><img src="img/Cats_and_Dogs_42_1.png" alt="png"></p>
 <p>We found that the images that we use have a white frame outside them, because they are not all the same size, this is a problem we unfortunatly did not have time to solve. BUT we see how good the model is to predict a mask highlighting the frame! - even with just two epochs.</p>
 <p>Here we make predictions for our 5 test images, and save them in the folder outputs.</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Predict masks for all the test images
@@ -296,9 +298,7 @@ model.predict_multiple(
 </code></pre></div><p>We do not have an intuitive understanding of the <em>accuracy</em> metric used by the segmentation_model so we have decided not to focus on this. Also since the frame has a way larger area than the cats/dogs on most of the images, it would probably just indicate how good it is at pedicting the frames.</p>
 
 </div>
-
-
-
+</div>
 
         </div>
       </div>
