@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>AI in the workplace - Spoke the help bot</title>
+      <link>https://sds-aau.github.io/M3Port19/portfolio/spoke/</link>
+      <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
+      
+      <guid>https://sds-aau.github.io/M3Port19/portfolio/spoke/</guid>
+      <description>A short article about how the AI help bot, &amp;ldquo;Spoke&amp;quot;, can be used in workplace and hereby the HR department in a company.
+Sources:
+askspoke.com - 21 Ways AI Is Transforming the Workplace in 2019</description>
+    </item>
+    
+    <item>
       <title>Deconvolution and Image Segmentation</title>
       <link>https://sds-aau.github.io/M3Port19/portfolio/deconvolution/</link>
       <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
@@ -19,6 +30,24 @@
       <guid>https://sds-aau.github.io/M3Port19/portfolio/deconvolution/</guid>
       <description>Group members: Johannes Hoseth, Sergiu Ropota, Katharina Granberg
 Deconvolution - A Way Of Increasing Output Size Within the field of computer vision, a well-known and multi-faceted area is segmentation, i.e. identifying and classifying objects in an image, via classes.</description>
+    </item>
+    
+    <item>
+      <title>Image classification with ResNet50</title>
+      <link>https://sds-aau.github.io/M3Port19/portfolio/resnet50/</link>
+      <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
+      
+      <guid>https://sds-aau.github.io/M3Port19/portfolio/resnet50/</guid>
+      <description>Doing cool things with data doesn&#39;t always need to be difficult. By using ResNet-50 you don&#39;t have to start from scratch when it comes to building a classifier model and make a prediction based on it.</description>
+    </item>
+    
+    <item>
+      <title>LipNet</title>
+      <link>https://sds-aau.github.io/M3Port19/portfolio/lipnet/</link>
+      <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
+      
+      <guid>https://sds-aau.github.io/M3Port19/portfolio/lipnet/</guid>
+      <description>Introduction LipNet is a neural network architecture for lipreading, it differs from earlier research within the field, because it maps whole sentences instead of detecting individual words or phoneme’s classification [1] (“A phoneme is the smallest unit of sound in a word that makes a difference in its pronunciation, as well as its meaning, from another word”[2]).</description>
     </item>
     
   </channel>
