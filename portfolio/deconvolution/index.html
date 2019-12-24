@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Deconvolution and Image Segmentation - AAU Social Data Science Deep Learning - 2019 Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://sds-aau.github.io/M3Port19/aauicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/M3Port19/css/style.min.292445006d9235b52898088294d6a591755bb999f4b7ee2692453e6f26233d82.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-list'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/M3Port19/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-portfolio">
+      <a href="/M3Port19/portfolio/">
+        <span>Portfolio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-info">
+      <a href="/M3Port19/info/">
+        <span>Info</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://sds-aau.github.io/M3Port19/"><img alt="Logo" src="/M3Port19/images/logo_aau.png" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://sds-aau.github.io/M3Port19/"><img alt="Logo" src="/M3Port19/images/logo_aau.png" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="/M3Port19/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-portfolio">
+      <a href="/M3Port19/portfolio/">
+        <span>Portfolio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-info">
+      <a href="/M3Port19/info/">
+        <span>Info</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Portfolio</h4>
+  <ul>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+
+<span class="overview">Overview</span>
+<h1 class="title">Deconvolution and Image Segmentation</h1>
+<div class="content">
+  <p><strong>Group members:</strong> Johannes Hoseth, Sergiu Ropota, Katharina Granberg</p>
+<h2 id="deconvolution---a-way-of-increasing-output-size">Deconvolution - A Way Of Increasing Output Size</h2>
+<p>Within the field of computer vision, a well-known and multi-faceted area is segmentation, i.e. identifying and classifying objects in an image, via classes. Deep Learning is especially applicable for tackling this, since the models are effecient in finding higher-level indicative features used in the segmentation.</p>
+<p><em>Convolutional Neural Networks</em> (CNNs) are amongst the most used models for this, because they (a) work very resource-efficiently by basing their understanding locally, by scanning just a small area of the image at a time, using just enough weights. Conversely, a fully connected network scans the entire image, generating weights for each pixel.</p>
+<p>We have chosen our topic to revolve around the lesser talked-about part of CNNs, being not the convolutional layers but rather the <strong>deconvolutional layers</strong>.</p>
+<p>You'll find both some conceptual explanations alongside a concrete coding example, which we've made ourselves.</p>
+<h3 id="cnns-in-a-nutshell">CNNs, In A Nutshell</h3>
+<p>CNNs consist basically of convolutional layers, where for each layer, a matrix-like filter is applied. The filter takes the dot product of all the pixel values underneath the filter and outputs the dot product as a singular value.</p>
+<p>The addition of a pooling layer after the convolutional layer is common procedure used for ordering layers within a convolutional neural network and <em>downsampling</em> the image, making it smaller. Choosing a stride larger than 1 for the convolutional layer is another way of downsampling the image.</p>
+<p>As this is done in multiple layers, the tensor becomes smaller and smaller, while its information becomes gradually more and more high-level.
+An example could be using CNN to recognizing cars in an image. The initial layers might recognize a car from low-level features that correspond to the vertical and horizontal lines of the boxy shape of a car. Later layers with more high-level features might be more complete representations of the car's symmetric shape, which combined with the lower-level features makes for an efficient holistic recognition process.</p>
+<p><img src="https://ujwlkarn.files.wordpress.com/2016/08/car.png?w=1212" alt="alt text"></p>
+<p>In the representation seen above, the general notion is that every convolutional layer is followed by the downsampling pooling layer. Before the pooling layer cna be applied, the &lsquo;ReLu&rsquo; activation function is applied during convolution. The ReLu function goes through every pixel value and converts any negative value to zero. This effectively introduces non-lineraity into the model. Convolution is an otherwise linear operation, and since most of the real-world data is non-linear, the inclusion of ReLu accounts for that.</p>
+<p>At the very end, a fully connected layer acts as the classifying function, basing its prediction on the high-level features acquired in the prior convolutional layers.</p>
+<h3 id="so-what-does-deconvolution-do">So What Does Deconvolution Do?</h3>
+<p>In image segmentation we don't just want to know which object is in the image, we want to know what kind of object each pixel in the image belongs to.</p>
+<p>So for image segmentation the downsampled output poses a problem - we want to find the class of every pixel of the original image, so the outpus should be the original size of the image, and the downsampled output is not directly usable. We need to have an output image the same size as the input image. This is where deconvolution comes in!</p>
+<p>Where regular convolutional layers encode features by downsampling, deconvolutional layers decodes that signal by upsampling. This means that it takes the minimized image and gradually increases its size back to its regular dimensions.</p>
+<p><img src="https://divamgupta.com/assets/images/posts/imgseg/image5.png?style=centerme" alt="alt text"></p>
+<p>If one were in a hurry, the downsampled output image could just be randomly resized, but this looses information crucial for recognition. Instead, deconvolution is trainable (like regular convolution), with parameters/features free to change between the layers.</p>
+<p>The way it does this is by taking a filter larger than the downsampled image, and by laying it over, multiplying the filter, the output becomes gradually bigger, as seen below:</p>
+<p><img src="https://miro.medium.com/max/688/0*NBKHZlXvqOg3R6_z.gif" alt="alt text"></p>
+<p>This is the basic of deconvolution. We wanted to test it out ourselves and a set of images, so the reamining is a concrete coding example, of specifically deconvolution.</p>
+<hr>
+<p><em>References:</em></p>
+<p>&lsquo;A Beginner's guide to Deep Learning based Semantic Segmentation using Keras&rsquo; - <a href="https://divamgupta.com/image-segmentation/2019/06/06/deep-learning-semantic-segmentation-keras.html">https://divamgupta.com/image-segmentation/2019/06/06/deep-learning-semantic-segmentation-keras.html</a></p>
+<p>&lsquo;Review: FCN — Fully Convolutional Network (Semantic Segmentation)&rsquo; - <a href="https://towardsdatascience.com/review-fcn-semantic-segmentation-eb8c9b50d2d1">https://towardsdatascience.com/review-fcn-semantic-segmentation-eb8c9b50d2d1</a></p>
+<p>&lsquo;Image Segmentation using deconvolution layer in Tensorflow&rsquo; - <a href="https://cv-tricks.com/image-segmentation/transpose-convolution-in-tensorflow/">https://cv-tricks.com/image-segmentation/transpose-convolution-in-tensorflow/</a></p>
+<p>&lsquo;A Gentle Introduction to Pooling Layers for Convolutional Neural Networks&rsquo; - <a href="https://machinelearningmastery.com/pooling-layers-for-convolutional-neural-networks/">https://machinelearningmastery.com/pooling-layers-for-convolutional-neural-networks/</a></p>
+<p>&lsquo;Review: DeconvNet — Unpooling Layer (Semantic Segmentation)&rsquo; - <a href="https://towardsdatascience.com/review-deconvnet-unpooling-layer-semantic-segmentation-55cf8a6e380e">https://towardsdatascience.com/review-deconvnet-unpooling-layer-semantic-segmentation-55cf8a6e380e</a></p>
+<h2 id="coding-example">Coding example</h2>
+<p>We got our data from the Common Objects in Context (COCO) database: <a href="http://cocodataset.org/#explore">http://cocodataset.org/#explore</a></p>
+<p>They have images of common objects, with annotations on what objects are present in each picture an a mask highlighting each object.</p>
+<h3 id="preample">Preample</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">%matplotlib inline
+from pycocotools.coco import COCO
+import numpy as np
+import skimage.io as io
+import matplotlib.pyplot as plt
+import pylab
+from PIL import Image
+from IPython.display import Image as Img_open, display
+pylab.rcParams[&#39;figure.figsize&#39;] = (8.0, 10.0)
+</code></pre></div><h3 id="data-handeling">Data Handeling</h3>
+<p>First we create the folders we need in our directory, and then we download and unzip the data.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Creating all the folders we need
+!cd /content/; mkdir coco
+!cd /content/coco/; mkdir images
+!cd /content/coco/; mkdir annotations
+!cd /content/coco/; mkdir imgs_train
+!cd /content/coco/; mkdir imgs_test
+!cd /content/coco/; mkdir masks
+!cd /content/coco/; mkdir outputs
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">!wget http://images.cocodataset.org/zips/train2014.zip
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">!wget http://images.cocodataset.org/annotations/annotations_trainval2014.zip
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">#!wget http://images.cocodataset.org/annotations/image_info_test2014.zip
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">!unzip train2014.zip -d coco/images
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">!unzip annotations_trainval2014.zip -d coco/annotations/
+</code></pre></div><p>We have chosen only to focus on regonising cats and dogs in images, so get a list of all the images containing cats and/or dogs.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># initialize COCO api for instance annotations
+dataDir=&#39;coco&#39;
+dataType=&#39;train2014&#39;
+annFile=&#39;{}/annotations/annotations/instances_{}.json&#39;.format(dataDir,dataType)
+coco=COCO(annFile)
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Getting a list with the category IDs related to cats and dogs
+catIds1 = coco.getCatIds(catNms=[&#39;cat&#39;])
+catIds2 = coco.getCatIds(catNms=[&#39;dog&#39;])
+catIds = catIds1+catIds2
+# Getting a list with the image IDs for all images of cats and/or dogs
+imgIds1 = coco.getImgIds(catIds=catIds1)
+imgIds2 = coco.getImgIds(catIds=catIds2)
+imgIds = list(set(imgIds1+imgIds2))
+</code></pre></div><p>The first 1.000 images containing a cat/dog we use as our traning images.</p>
+<p>First we save the images in a seperate folder that we call imgs_train, here we also rename them so the name is the image ID.
+Second we acess the mask for each image and save it in an other folder, that we call masks. It is important that they are named the same at their respective images.
+Third we recolor the masks, the model that we train later demand that the range of each image is only between 0 and 1.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">import time
+start = time.time()
+
+# Preparing 1000 images and masks for training the model
+for i in range(1000):       #len(imgIds) = 5715 images
+  img=coco.loadImgs(imgIds[i])[0]
+  I = io.imread(img[&#39;coco_url&#39;])
+  annIds = coco.getAnnIds(imgIds=img[&#39;id&#39;], catIds=catIds, iscrowd=None)
+  anns = coco.loadAnns(annIds)
+  #Saving the image with no mask
+  plt.imshow(I)
+  plt.axis(&#39;off&#39;)
+  plt.savefig(&#39;/content/coco/imgs_train/&#39;+str(img[&#39;id&#39;])+&#39;.png&#39;)
+  plt.close()
+  #Saving the mask
+  anns_img = np.zeros((img[&#39;height&#39;],img[&#39;width&#39;]))
+  anns_img = np.maximum(anns_img,coco.annToMask(anns[0])*anns[0][&#39;category_id&#39;])
+  plt.imshow(anns_img, interpolation=&#39;nearest&#39;)
+  plt.axis(&#39;off&#39;)
+  plt.savefig(&#39;/content/coco/masks/&#39;+str(img[&#39;id&#39;])+&#39;.png&#39;)
+  plt.close()
+  # # darkening the masks (making the pixels between 0 an 1)
+  Image.open(&#39;/content/coco/masks/&#39;+str(img[&#39;id&#39;])+&#39;.png&#39;).point(lambda p: p / 255).save(&#39;/content/coco/masks/&#39;+str(img[&#39;id&#39;])+&#39;.png&#39;)
+  # print(i) # just to follow the progress
+
+end = time.time()
+print(end - start)
+</code></pre></div><pre><code>552.9864583015442
+</code></pre>
+<p>We use the next 5 images containing a cat/dog as a test dataset.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Preparing 5 images to test the model on
+for i in range(1000,1005):
+  img=coco.loadImgs(imgIds[i])[0]
+  I = io.imread(img[&#39;coco_url&#39;])
+  annIds = coco.getAnnIds(imgIds=img[&#39;id&#39;], catIds=catIds, iscrowd=None)
+  anns = coco.loadAnns(annIds)
+  #Saving the image with no mask
+  plt.imshow(I)
+  plt.axis(&#39;off&#39;)
+  plt.savefig(&#39;/content/coco/imgs_test/&#39;+str(img[&#39;id&#39;])+&#39;.png&#39;)
+  plt.close()
+</code></pre></div><h3 id="the-model">The Model</h3>
+<p>We use a special package called keras-segmentation to create the model. It is a package made to work in tandem with Keras, so we use Keras functional API to describe the model.</p>
+<p>Note the UpSampling2D layers, they are the ones doing the deconvolution.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Importing the Keras modules
+!pip install keras-segmentation
+from keras_segmentation.models.model_utils import get_segmentation_model
+from keras.layers import Input, Conv2D, Dropout, Conv2D, MaxPooling2D, UpSampling2D, concatenate
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Using the Keras functional API to define all the layers and the flow between them
+img_input = Input(shape=(200, 200, 3 ))
+
+conv1 = Conv2D(32, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(img_input)
+conv1 = Dropout(0.2)(conv1)
+conv1 = Conv2D(32, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(conv1)
+pool1 = MaxPooling2D((2, 2))(conv1)
+
+conv2 = Conv2D(64, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(pool1)
+conv2 = Dropout(0.2)(conv2)
+conv2 = Conv2D(64, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(conv2)
+pool2 = MaxPooling2D((2, 2))(conv2)
+
+conv3 = Conv2D(128, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(pool2)
+conv3 = Dropout(0.2)(conv3)
+conv3 = Conv2D(128, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(conv3)
+
+up1 = concatenate([UpSampling2D((2, 2))(conv3), conv2], axis=-1)
+conv4 = Conv2D(64, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(up1)
+conv4 = Dropout(0.2)(conv4)
+conv4 = Conv2D(64, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(conv4)
+
+up2 = concatenate([UpSampling2D((2, 2))(conv4), conv1], axis=-1)
+conv5 = Conv2D(32, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(up2)
+conv5 = Dropout(0.2)(conv5)
+conv5 = Conv2D(32, (3, 3), activation=&#39;relu&#39;, padding=&#39;same&#39;)(conv5)
+
+out = Conv2D( 2, (1, 1) , padding=&#39;same&#39;)(conv5)
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Building the model as a segmentation model
+model = get_segmentation_model(img_input ,  out )
+</code></pre></div><p>Here we train the model, specifing the images and the masks to use.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Training the model on the train images and their masks
+model.train( 
+    train_images =  &#39;coco/imgs_train&#39;,
+    train_annotations = &#39;coco/masks&#39;,
+    epochs = 2
+)
+</code></pre></div><p>Here we use the model to predict the appropriate mask highlighting cats and dogs in the image.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Predict the mask for one image
+out = model.predict_segmentation(
+    inp=&#39;/content/coco/imgs_test/235062.png&#39;,
+    out_fname=&#39;/content/coco/output.png&#39;
+)
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">display(Img_open(&#39;/content/coco/imgs_test/235062.png&#39;,width=100, height=100))
+display(Img_open(&#39;/content/coco/output.png&#39;,width=100, height=100))
+</code></pre></div><p><img src="/img/Cats_and_Dogs_42_0.png" alt="png"></p>
+<p><img src="/img/Cats_and_Dogs_42_1.png" alt="png"></p>
+<p>We found that the images that we use have a white frame outside them, because they are not all the same size, this is a problem we unfortunatly did not have time to solve. BUT we see how good the model is to predict a mask highlighting the frame! - even with just two epochs.</p>
+<p>Here we make predictions for our 5 test images, and save them in the folder outputs.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Predict masks for all the test images
+model.predict_multiple( 
+	inp_dir=&#39;/content/coco/imgs_test/&#39;,
+	out_dir=&#39;/content/coco/outputs/&#39; 
+)
+</code></pre></div><p>We do not have an intuitive understanding of the <em>accuracy</em> metric used by the segmentation_model so we have decided not to focus on this. Also since the frame has a way larger area than the cats/dogs on most of the images, it would probably just indicate how good it is at pedicting the frames.</p>
+
+</div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script defer src="/M3Port19/js/all.js"></script>
+
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"> <a href="https://www.zerostatic.io">Built with Hugo </a> <i class="fab fa-github"> </i>  and <i class="far fa-heart">  </i>  </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/M3Port19/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
