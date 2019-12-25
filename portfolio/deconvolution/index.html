@@ -298,8 +298,8 @@ out = model.predict_segmentation(
 )
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">display(Img_open(&#39;/content/coco/imgs_test/235062.png&#39;,width=100, height=100))
 display(Img_open(&#39;/content/coco/output.png&#39;,width=100, height=100))
-</code></pre></div><p><img src="img/Cats_and_Dogs_42_0.png" alt="png"></p>
-<p><img src="img/Cats_and_Dogs_42_1.png" alt="png"></p>
+</code></pre></div><p><img src="img/Cats_and_Dogs_42_0.png" alt=""></p>
+<p><img src="/img/Cats_and_Dogs_42_1.png" alt=""></p>
 <p>We found that the images that we use have a white frame outside them, because they are not all the same size, this is a problem we unfortunatly did not have time to solve. BUT we see how good the model is to predict a mask highlighting the frame! - even with just two epochs.</p>
 <p>Here we make predictions for our 5 test images, and save them in the folder outputs.</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># Predict masks for all the test images
