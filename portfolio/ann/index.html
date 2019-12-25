@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Approximate Nearest Neighbors Oh Yeah (ANNOY) - AAU Social Data Science Deep Learning - 2019 Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://sds-aau.github.io/M3Port19/aauicon.png">
+
+  
+  
+  <link rel="stylesheet" href="https://sds-aau.github.io/M3Port19/css/style.min.292445006d9235b52898088294d6a591755bb999f4b7ee2692453e6f26233d82.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="https://sds-aau.github.io/M3Port19/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-portfolio">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/">
+        <span>Portfolio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-info">
+      <a href="https://sds-aau.github.io/M3Port19/info/">
+        <span>Info</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://sds-aau.github.io/M3Port19/"><img alt="Logo" src="https://sds-aau.github.io/M3Port19/images/logo_aau.png" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://sds-aau.github.io/M3Port19/"><img alt="Logo" src="https://sds-aau.github.io/M3Port19/images/logo_aau.png" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-home">
+      <a href="https://sds-aau.github.io/M3Port19/">
+        <span>Home</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-portfolio">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/">
+        <span>Portfolio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-info">
+      <a href="https://sds-aau.github.io/M3Port19/info/">
+        <span>Info</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Portfolio</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/spoke/">AI in the workplace - Spoke the help bot</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/ann/">Approximate Nearest Neighbors Oh Yeah (ANNOY)</a>
+    </li>
+    
+    <li class="">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/deconvolution/">Deconvolution and Image Segmentation</a>
+    </li>
+    
+    <li class="">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/resnet50/">Image classification with ResNet50</a>
+    </li>
+    
+    <li class="">
+      <a href="https://sds-aau.github.io/M3Port19/portfolio/lipnet/">LipNet</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Approximate Nearest Neighbors Oh Yeah (ANNOY)</h1>
+<div class="content ">
+  <p><img src="https://warehouse-camo.cmh1.psfhosted.org/378b31074a83939a9cf068b92be7ed28b5a02448/68747470733a2f2f7261772e6769746875622e636f6d2f73706f746966792f616e6e6f792f6d61737465722f616e6e2e706e67" alt="alt_text" title="image_tooltip"></p>
+<h2 id="what-is-annoy">What is ANNOY</h2>
+<p>ANNOY (Approximate Nearest Neighbors Oh Yeah) is a C++ library with Python bindings to search for points in space that are close to a given query point eg. a specific point of interest.</p>
+<p>It also creates large data structures that are mapped into memory so that many processes may share the same data. The nearest neighbors search is a similarity problem to find the closest points to a given instance.</p>
+<h3 id="definition">Definition</h3>
+<p>Out of a set of <em>n</em> instances <em>P = {p1, &hellip;, pn}</em> in some metric space <em>X</em> the nearest neighbors search computes the closest instance <em>q</em> to an instance <em>p</em> under some measurement function.</p>
+<figure>
+    <img src="https://i.imgur.com/6tLNUoz.png" height="200px"/> 
+</figure>
+
+<p>The idea behind the approximate nearest neighbor search is to speed up the computation of the nearest neighbors, the exact algorithm can not be improved. The only way to speed up the computation is to allow errors[^1].</p>
+<p>ANNOY (Approximate Nearest Neighbors Oh Yeah) is an algorithm based on random projections and trees. It was developed by Erik Bernhardsson in 2015 working at that time at Spotify. ANNOY is designed to search in date sets up to 100 to 1000 dense dimensions. To compute the nearest neighbors it is splitting the set of points into half and is doing this recursively until each set is having <em>k</em> items. Usually <em>k</em> should be around 100 <em>(see figure below)</em>.</p>
+<p><img src="https://i.imgur.com/4UUevet.png" alt="alt_text" title="image_tooltip">
+An approximate nearest neighbors search algorithm is allowed to return points, whose distance from the query is at most <em>c</em> times the distance from the query to its nearest points.</p>
+<p>The appeal of this approach is that, in many cases, an approximate nearest neighbors is almost as good as the exact one. In particular, if the distance measure accurately captures the notion of user quality, then small differences in the distance should not matter.</p>
+<p>ANN classification output represents a class membership. An object is classified by the majority votes of its neighbors. The object is assigned to a particular class that is most common among its <em>k</em> nearest neighbors. <em>k</em> is a positive integer, typically small[^2].  \</p>
+<h1 id="why-use-annoy">Why use ANNOY?</h1>
+<p>Annoy is almost as fast as the fastest libraries, but there is actually another feature that really sets Annoy apart: it has the ability to use static files as indexes. In particular, this means you can share index across processes. Annoy also decouples creating indexes from loading them, so you can pass around indexes as files and map them into memory quickly. Another nice thing of Annoy is that it tries to minimize memory footprint so the indexes are quite small[^3].</p>
+<p>An exact algorithm to solve the similarity problem of the k-nearest neighbors is given with a runtime of <em>O(n2 ∗ m)</em> with <em>n</em> instances and <em>m</em> dimensions. Given the curse of dimensionality the runtime of this algorithm is critical, approximate algorithms can be helpful to find a solution, while using less time and computational power.</p>
+<p>Current approximate nearest neighbors search algorithms are often dealing with a lack of support of very high dimensional but very sparse datasets. The benefits of a sparse dataset is that only the non-zero features of every instance need to be stored.</p>
+<p>Algorithms like Annoy accept sparse datasets as an input but needs a lot of memory. The higher the dimensions are the more is the runtime of the algorithm depended on the number of dimensions and not as usually assumed by the number of input instances[^4].</p>
+<p>This is where approximate nearest neighbors shines: returning approximate results but blazingly quickly. Many times you don’t need exact optimal results[^5].</p>
+<h1 id="whats-the-difference-between-nearest-neighbors-algorithms">What’s the difference between nearest neighbors algorithms?</h1>
+<p>There are numerous variants of the Nearest Neighbors Search (NNS) problem and the two most well-known are the k-nearest neighbors search and the approximate nearest neighbors search.</p>
+<p>**k-nearest neighbors **</p>
+<p>k-nearest neighbors search identifies the top k nearest neighbors to the query. This technique is commonly used in predictive analytics to estimate or classify a point based on the consensus of its neighbors. k-nearest neighbors graphs are graphs in which every point is connected to its k-nearest neighbors.</p>
+<p><strong>Approximate nearest neighbors (ANN)</strong></p>
+<p>In some applications it may be acceptable to retrieve a &ldquo;good guess&rdquo; of the nearest neighbors. In those cases, we can use an algorithm which doesn't guarantee to return the actual nearest neighbors in every case, in return for improved speed or memory savings. Often such an algorithm will find the nearest neighbors in a majority of cases, but this depends strongly on the dataset being queried. ANNOY is an example of ANN[^6].</p>
+<p>The difference between KNN and ANN is that in the prediction phase, all training points are involved in searching k-nearest neighbors in the KNN algorithm, but in ANN this search starts only on a small subset of candidates points[^7].</p>
+<h1 id="what-problems-can-occur-when-working-with-annoy">What problems can occur when working with ANNOY</h1>
+<p>Working with ANNOY has great potential in optimizing runtime, when executing Nearest Neighbors algorithm, but also the risk of decreasing runtime, if not handled properly. This is where ‘the curse of dimensionality’ comes in. If ANNOY is working with a large display of dimensionality, it may affect runtime in a bad way, opposite from the number of instances, that does not affect/influence runtime in the same way.</p>
+<p><strong>Curse of dimensionality</strong></p>
+<p>The curse of dimensionality was first mentioned by Bellman in 1957. The well known notion of big O to specify the theoretical runtime of an algorithm focuses on the number of input elements. Bellman showed that for a computation of <em>n</em> instances with <em>m</em> dimensions that the runtime is more depended on the number of dimensions if <em>m &raquo; n</em>. For example if <em>n = 1000</em> and <em>m = 100000</em> then a quadratic factor for the runtime of the prediction for the k-nearest neighbors with <em>O(n2 ∗ m)</em> is not influencing the runtime that drastically in comparison to the influence of the dimensions[^8].</p>
+<h1 id="get-your-hands-dirty">Get your hands dirty</h1>
+<p>To install, simply do <code>!pip install -qq annoy</code> to pull down the latest version from PyPI.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">annoy</span> <span class="kn">import</span> <span class="n">AnnoyIndex</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">AnnoyIndex</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">angular</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Length of item vector that will be indexed</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="p">:</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">gauss</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="p">]</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+<span class="n">t</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 10 trees</span>
+<span class="n">t</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">test.ann</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># ...</span>
+
+<span class="n">u</span> <span class="o">=</span> <span class="n">AnnoyIndex</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">angular</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">u</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">test.ann</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># super fast, will just mmap the file</span>
+<span class="k">print</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get_nns_by_item</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="p">)</span> <span class="c1"># will find the 1000 nearest neighbors</span>
+</code></pre></div><p>Approximate Nearest neighbors search (ANNS) is a fundamental and essential operation in applications from many domains, such as databases, machine learning, multimedia, and computer vision.</p>
+<p>Despite much research on this problem, it is commonly believed that it is very costly to find the exact nearest neighbors in high dimensional Euclidean space, due to the curse of dimensionality. Experiments showed that exact methods can rarely outperform the brute-force linear scan method when dimensionality is high (e.g., more than 20). Nevertheless, returning sufficiently nearby objects, referred to as approximate nearest neighbors search (ANNS), can be performed efficiently and are sufficiently useful for many practical problems[^9].</p>
+<h2 id="practical-use-of-annoy">Practical use of ANNOY:</h2>
+<p>Approximate Nearest Neighbors search is used at Spotify for music recommendations. After running matrix factorization algorithms, every user/song can be represented as a vector in f-dimensional space. This ANN library helps with searching for similar users/song. Spotify has a database of millions of tracks in a high-dimensional space, with millions of users, so memory usage and decreasing the runtime, for every query is a prime concern for a system like Spotify’ recommender system[^10] [^11].</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>ANNOY solves a fundamental problem and has both significant theoretical value and empowers a diverse range of applications. It is widely believed that there is no practically competitive algorithm to answer exact ANN queries in sublinear time with linear sized index.</p>
+<!-- raw HTML omitted -->
+<h2 id="sources">Sources</h2>
+<p>^1: <a href="http://www.bioinf.uni-freiburg.de/Lehre/Theses/MA_Joachim_Wolff.pdf">http://www.bioinf.uni-freiburg.de/Lehre/Theses/MA_Joachim_Wolff.pdf</a></p>
+<p>^2: <a href="https://apacheignite.readme.io/docs/ann-approximate-nearest-neighbor">https://apacheignite.readme.io/docs/ann-approximate-nearest-neighbor</a></p>
+<p>^3: <a href="https://github.com/spotify/annoy">https://github.com/spotify/annoy</a></p>
+<p>^4: <a href="http://www.bioinf.uni-freiburg.de/Lehre/Theses/MA_Joachim_Wolff.pdf">http://www.bioinf.uni-freiburg.de/Lehre/Theses/MA_Joachim_Wolff.pdf</a></p>
+<p>^5: <a href="https://medium.com/@kevin_yang/simple-approximate-nearest-neighbors-in-python-with-annoy-and-lmdb-e8a701baf905">https://medium.com/@kevin_yang/simple-approximate-nearest-neighbors-in-python-with-annoy-and-lmdb-e8a701baf905</a></p>
+<p>^6: <a href="https://en.wikipedia.org/wiki/Nearest_neighbor_search#Approximate_nearest_neighbor">https://en.wikipedia.org/wiki/Nearest_neighbor_search#Approximate_nearest_neighbor</a></p>
+<p>^7: <a href="https://apacheignite.readme.io/docs/ann-approximate-nearest-neighbor">https://apacheignite.readme.io/docs/ann-approximate-nearest-neighbor</a></p>
+<p>^8: <a href="http://www.bioinf.uni-freiburg.de/Lehre/Theses/MA_Joachim_Wolff.pdf">http://www.bioinf.uni-freiburg.de/Lehre/Theses/MA_Joachim_Wolff.pdf</a></p>
+<p>^9: <a href="https://arxiv.org/pdf/1610.02455.pdf">https://arxiv.org/pdf/1610.02455.pdf</a></p>
+<p>^10: <a href="https://github.com/spotify/annoy">https://github.com/spotify/annoy</a></p>
+<p>^11: <a href="https://www.youtube.com/watch?v=QkCCyLW0ehU">https://www.youtube.com/watch?v=QkCCyLW0ehU</a></p>
+<!-- raw HTML omitted -->
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script defer src="https://sds-aau.github.io/M3Port19/M3Port19/js/all.js"></script>
+
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"> <a href="https://www.zerostatic.io">Built with Hugo </a> <i class="fab fa-github"> </i>  and <i class="far fa-heart">  </i>  </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="https://sds-aau.github.io/M3Port19/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

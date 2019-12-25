@@ -23,6 +23,15 @@ askspoke.com - 21 Ways AI Is Transforming the Workplace in 2019</description>
     </item>
     
     <item>
+      <title>Approximate Nearest Neighbors Oh Yeah (ANNOY)</title>
+      <link>https://sds-aau.github.io/M3Port19/portfolio/ann/</link>
+      <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
+      
+      <guid>https://sds-aau.github.io/M3Port19/portfolio/ann/</guid>
+      <description>What is ANNOY ANNOY (Approximate Nearest Neighbors Oh Yeah) is a C++ library with Python bindings to search for points in space that are close to a given query point eg.</description>
+    </item>
+    
+    <item>
       <title>Deconvolution and Image Segmentation</title>
       <link>https://sds-aau.github.io/M3Port19/portfolio/deconvolution/</link>
       <pubDate>Wed, 28 Nov 2018 15:14:39 +1000</pubDate>
